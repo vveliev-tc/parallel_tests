@@ -1,4 +1,5 @@
 require "parallel_tests/gherkin/runner"
+require 'cucumber'
 
 module ParallelTests
   module Cucumber
@@ -29,6 +30,11 @@ module ParallelTests
           output << super
 
           output.join("\n\n")
+        end
+
+
+        def files_from_profile(name)
+          ::Cucumber::Cli::ProfileLoader.new.args_from(name).grep(self.test_suffix)
         end
 
         def command_with_seed(cmd, seed)
